@@ -1,17 +1,15 @@
 # bmofetch
-- [bmofetch](#bmofetch)
-  - [Description](#description)
-  - [Installation](#installation)
-  - [Change the speech bubble text](#change-the-speech-bubble-text)
-  - [Input suported by bmosay.sh](#input-suported-by-bmosaysh)
 
-## Description
 A neofetch theme inspired by BMO from Adventure Time with a cowsay like speech bubble.\
 you can find the complete neofetch-themes repository at:\
 https://github.com/Chick2D/neofetch-themes/blob/main/small/bmofetch/
 
 ![](https://cdn.discordapp.com/attachments/840232870491979807/1268214715776110612/bmofetch.gif?ex=66ab9c7e&is=66aa4afe&hm=3a2297c0d30efc7ca4b9d7a7121d68080c3c92ad6f13235d4f43d34cf29045d7&)
 
+- [bmofetch](#bmofetch)
+  - [Installation](#installation)
+  - [Change the speech bubble text](#change-the-speech-bubble-text)
+  - [Input suported by bmosay.sh](#input-suported-by-bmosaysh)
 
 
 ## Installation
@@ -51,7 +49,7 @@ You can change the speech bublle text by running [bmosay.sh](https://github.com/
 &nbsp;&nbsp;sh .config/neofetch/bmofetch/bmosay.sh "Hello, world!"\
 &nbsp;&nbsp;sh .config/neofetch/bmofetch/bmosay.sh -vq --random file.txt\
 &nbsp;&nbsp;sh .config/neofetch/bmofetch/bmosay.sh -qr file.txt\
-&nbsp;&nbsp;sh .config/neofetch/bmofetch/bmosay.sh --help\
+&nbsp;&nbsp;sh .config/neofetch/bmofetch/bmosay.sh --help
 
 ## Input suported by bmosay.sh
 \+ supports utf-8 characters.\
