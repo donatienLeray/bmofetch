@@ -35,24 +35,24 @@ You can change the speech bublle text by running [bmosay.sh](https://github.com/
  sh path_to_bmofetch/bmosay.sh "your text here"
 ```
 **SYNOPSIS:\
-  sh .config/neofetch/bmofetch/bmosay.sh [options] <argument>**
+  sh .config/neofetch/bmofetch/bmosay.sh [options] \<argument\>**
 
 **OPTIONS:**\
-  -v, --verbose       Enable verbose mode.(prints debug messages)\
-  -q, --quiet         Suppress output.\
-  -r, --random        Specify a file to get a random line from.\
-  -h, --help          Display this help message and exit.\
-  -vq, -qv            Enable both verbose and quiet mode.(only prints debug messages)\
-  -**,-***            Any combination of r, v, q can be used instead  of the above\
+&nbsp;&nbsp;-v, --verbose&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enable verbose mode.(prints debug messages)\
+&nbsp;&nbsp;-q, --quiet&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;Suppress output.\
+&nbsp;&nbsp;-r, --random &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Specify a file to get a random line from.\
+&nbsp;&nbsp;-h, --help &nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Display this help message and exit.\
+&nbsp;&nbsp;-vq, -qv &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enable both verbose and quiet mode.(only prints debug messages)\
+&nbsp;&nbsp;-\*\*, -\*\*\*&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Any combination of r, v, q can be used instead  of the above\
 
 **EXAMPLES:**\
-  sh .config/neofetch/bmofetch/bmosay.sh "Hello, world!"\
-  sh .config/neofetch/bmofetch/bmosay.sh -vq --random file.txt\
-  sh .config/neofetch/bmofetch/bmosay.sh -qr file.txt\
-  sh .config/neofetch/bmofetch/bmosay.sh --help\
+&nbsp;&nbsp;sh .config/neofetch/bmofetch/bmosay.sh "Hello, world!"\
+&nbsp;&nbsp;sh .config/neofetch/bmofetch/bmosay.sh -vq --random file.txt\
+&nbsp;&nbsp;sh .config/neofetch/bmofetch/bmosay.sh -qr file.txt\
+&nbsp;&nbsp;sh .config/neofetch/bmofetch/bmosay.sh --help\
 
 ## Input suported by bmosay.sh
-\+ supports utf-8 characters\
-\- newlines and carriage returns are not supported\
-\- multiple spaces as well as leading and trailing spaces are ignored
+\+ supports utf-8 characters.\
+\- newlines and carriage returns are not supported yet.\
+\- multiple spaces as well as leading and trailing spaces are ignored.
 
