@@ -6,7 +6,7 @@
   - [Input suported by bmosay.sh](#input-suported-by-bmosaysh)
 
 ## Description
-A neofetch theme inspired by the BMO character from Adventure Time with a cowsay like speech bubble.\
+A neofetch theme inspired by BMO from Adventure Time with a cowsay like speech bubble.\
 you can find the complete neofetch-themes repository at:\
 https://github.com/Chick2D/neofetch-themes/blob/main/small/bmofetch/
 
@@ -15,6 +15,8 @@ https://github.com/Chick2D/neofetch-themes/blob/main/small/bmofetch/
 
 
 ## Installation
+requires neofetch to be installed.
+
   1. Clone the repository:
 ```bash
   git clone
@@ -43,7 +45,7 @@ You can change the speech bublle text by running [bmosay.sh](https://github.com/
 &nbsp;&nbsp;-r, --random &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Specify a file to get a random line from.\
 &nbsp;&nbsp;-h, --help &nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Display this help message and exit.\
 &nbsp;&nbsp;-vq, -qv &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enable both verbose and quiet mode.(only prints debug messages)\
-&nbsp;&nbsp;-\*\*, -\*\*\*&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Any combination of r, v, q can be used instead  of the above\
+&nbsp;&nbsp;-\*\*, -\*\*\*&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Any combination of r, v, q can be used instead  of the above
 
 **EXAMPLES:**\
 &nbsp;&nbsp;sh .config/neofetch/bmofetch/bmosay.sh "Hello, world!"\
