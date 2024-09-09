@@ -3,7 +3,7 @@
 A neofetch theme inspired by BMO from Adventure Time with a cowsay like speech bubble.\
 you can find the complete neofetch-themes repository at: https://github.com/Chick2D/neofetch-themes
 
-![](https://cdn.discordapp.com/attachments/840232870491979807/1268214715776110612/bmofetch.gif?ex=66ab9c7e&is=66aa4afe&hm=3a2297c0d30efc7ca4b9d7a7121d68080c3c92ad6f13235d4f43d34cf29045d7&)
+![bmofetch](https://github.com/user-attachments/assets/1850e6a3-6ad2-4421-a73b-3259f9b064f1)
 
 - [bmofetch](#bmofetch)
   - [Installation](#installation)
