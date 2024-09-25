@@ -61,17 +61,25 @@ sh .config/neofetch/bmofetch/bmosay.sh -p /path/to/bmofetch "Hello, world!"
 \- multiple spaces as well as leading and trailing spaces are ignored.
 
 ## Roadmap bmosay
+<details>
+  <summary>older</summary>
+  <b>&nbsp;|</br>
+  <b>✅ support for compact flags.</br>
+  <b>&nbsp;|</br>
+  <b>✅ support input from file.</b>
+</details>
+    
 &nbsp;**|**\
-✅ **support input from file.**\
+✅ **[Working Directory #3](https://github.com/donatienLeray/bmofetch/issues/3)**\
 &nbsp;**|**\
 🛠️ **support multiline input.**\
 &nbsp;|\
-**◯** make an bmosay installation script.\
+**▢** make an bmosay installation script.\
 &nbsp;|\
-**◯** support piping.\
+**▢** support piping.\
 &nbsp;|\
-**◯** support [fish completion](https://fishshell.com/docs/current/completions.html).\
+**▢** support [fish completion](https://fishshell.com/docs/current/completions.html).\
 &nbsp;|\
-**◯** support [zsh completion](https://github.com/zsh-users/zsh/tree/master/Completion).\
+**▢** support [zsh completion](https://github.com/zsh-users/zsh/tree/master/Completion).\
 &nbsp;|\
-**◯** support [bash-completion](https://github.com/scop/bash-completion).
+**▢** support [bash-completion](https://github.com/scop/bash-completion).
