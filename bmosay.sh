@@ -45,37 +45,6 @@ replace_string_in_file() {
     fi
 }
 
-add_line_after_specific_line() {
-    local file="$1"
-    local line_number="$2"
-    local -n new_lines=$3
-    local temp_file=$(mktemp)
-
-    # Ensure the line number is valid
-    if [[ ! "$line_number" =~ ^[0-9]+$ ]] || (( line_number < 1 )); then
-        printf "Invalid line number: %d\n" "$line_number" >&2
-        return 1
-    fi
-
-    local current_line=1
-    while IFS= read -r line || [[ -n "$line" ]]; do
-        printf "%s\n" "$line" >> "$temp_file"
-        if (( current_line == line_number )); then
-            for new_line in "${new_lines[@]}"; do
-                printf "%s\n" "$new_line" >> "$temp_file"
-            done
-        fi
-        ((current_line++))
-    done < "$file"
-
-    # Handle case where line_number is greater than the number of lines in the file
-    if (( current_line <= line_number )); then
-        printf "%s\n" "$new_line" >> "$temp_file"
-    fi
-
-    mv "$temp_file" "$file"
-}
-
 
 # Function to print the help message
 print_help() {
@@ -139,117 +108,64 @@ if [[ "$RANDOM_MODE" = true ]]; then
         exit 1
     fi
     # Get a random line from the file as the input
-    read_input=$(shuf -n 1 $1)
+    input=$(shuf -n 1 $1)
 else
-    read_input="$1"
+    # Get the input string
+    input=$(echo "$1")
 fi 
 
-# Check that input contains NO carriage returns
-if [[ $read_input == *'\r'* ]]; then
+# Clean up multiple and leading or trailing spaces
+input=$(echo "$input" | tr -s ' '| sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+
+# Check that input contains NO line breaks or carriage returns
+if [[ $input == *'\n'* ]] || [[ $input == *'\r'* ]]; then
     if [[ "$QUIET" = false ]]; then
-        echo -e "\033[31mError: The input string can not contain any carriage returns.\033[39m" >&2
+        echo -e "\033[31mError: The input string cannot contain line breaks or carriage returns.\033[39m" >&2
     fi
     exit 1
 fi
 
-# read input line by line and save in lines array
-IFS='\n' read -r -d '' -a lines <<< "$read_input"
-
-input=()
-# itterate over the lines and clean them up
-for line in "${lines[@]}"; do
-    #if the line is empty ignore it
-    if [ -n "$line" ]; then
-        # clean up multiple and leading or trailing spaces
-        input+=("$(echo "$line" | tr -s ' '| sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')")
-    fi
-done
-
-#find the longest line in input
-longest=0
-for line in "${input[@]}"; do
-    if [ ${#line} -gt $longest ]; then
-        longest=${#line}
-    fi
-done
-
-# Get the inner size of the speach bubble is longest +2
-bub_len=$((longest + 2))
+# Get the inner size of the speach bubble
+bub_len=$((${#input}+2))
 
 # Make the top line "ˏ______ˎ"
 top_line="ˏ$(printf '_%.0s' $(seq 1 $bub_len))ˎ"
 
+# Make center text "| text |"
+center_text="\| $input \|"
+
 # Make the bottom line "`ˉˉˉˉˉˉ´"
 bottom_line="\`$(printf 'ˉ%.0s' $(seq 1 $bub_len))\´"
 
-# # The Speach bubble has to be cut in two parts: 
-# # The first part will be in the ASCII file and the second part will be in the config file
-# # Default case for start part of the speach bubble 
-# start_top_line="$top_line"
-# start_bottom_line="$bottom_line"
-# # Deafault case for end part of the speach bubble
-# end_top_line=""
-# end_bottom_line=""
+# The Speach bubble has to be cut in two parts: 
+# The first part will be in the ASCII file and the second part will be in the config file
+# Default case for start part of the speach bubble 
+start_top_line="$top_line"
+start_center_text="$center_text"
+start_bottom_line="$bottom_line"
+# Deafault case for end part of the speach bubble
+end_top_line=""
+end_center_line=""
+end_bottom_line=""
 
-# # If input string was not empty
-# if [ "$bub_len" -gt 2 ]; then
-#     # Get the 4 first chars of the lines
-#     start_top_line=${top_line:0:4}
-#     start_bottom_line=${bottom_line:0:4}
-#     # Get rest chars of the lines
-#     end_top_line=${top_line: 4}
-#     end_bottom_line=${bottom_line: 4}
-# fi
+# If input string was not empty
+if [ "$bub_len" -gt 2 ]; then
+    # Get the 4 first chars of the lines
+    start_top_line=${top_line:0:4}
+    start_center_text=${center_text:0:5}
+    start_bottom_line=${bottom_line:0:4}
+    # Get rest chars of the lines
+    end_top_line=${top_line: 4}
+    end_center_line=${center_text: 5}
+    end_bottom_line=${bottom_line: 4}
+fi
 
-# add top line ad start of the input array and bottom line at the end of the array
-input=("$top_line" "${input[@]}" "$bottom_line")
-
-echo "----test new input array----"
-for line in "${input[@]}"; do
-    echo "$line"
-done
-echo "----test new input array----"
-
-center_ascii=()
-center_conf=()
-for line in "${input[@]}"; do
-    echo "line: $line"
-    
-    # if line is neither first nor last line
-    if [ "$line" != "${input[0]}" ] && [ "$line" != "${input[-1]}" ]; then
-        # Get the length of the line
-        line_len=${#line}
-        echo "make new line"
-        # Calculate the number of spaces to add to the line
-        spaces=$((longest - line_len))
-        # Add the spaces to the line ans | at the beginning and end
-        input_line=$(printf "\| %s%*s \|" "$line" $spaces)
-    else 
-        input_line="$line"   
-    fi
-    # write line back to the array
-    center_ascii+=("$input_line")
-    if [ "${#input_line}" -gt 4 ]; then
-        # Add the forth char of the line to the center_conf array
-        center_conf+=("${input_line:5:1}")
-    else
-        # Add a space to the center_conf array
-        center_conf+=("")
-    fi
-done
-
-echo "----test center arrays----"
-for line in "${center_ascii[@]}"; do
-    echo "$line"
-done
-echo "----test center arrays----"
-
-echo "----test center conf array----"
-for line in "${center_conf[@]}"; do
-    echo "$line"
-done
-echo "----test center conf array----"
-exit 1
+# If the text part that gets rendered though the neofetch conf (using prin) 
+# has a leading space, let it get rendered as ascii instead (prin does not render leading spaces)
+if [[ $end_center_line =~ ^[[:space:]].* ]]; then
+    start_center_text="$center_text"
+    end_center_line="" #This will print a single whitespace overlapping the ascii
+fi
 
 # Get the path of the script
 SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
@@ -266,22 +182,6 @@ replace_string_in_file "$ascii_file" "3" "\\\033[36m    \\/|\\\033[39m ______\\\
 replace_string_in_file "$conf_file" "5" "    prin \"$end_top_line\""
 replace_string_in_file "$conf_file" "6" "    prin \"$end_center_line\"" 
 replace_string_in_file "$conf_file" "7" "    prin \"$end_bottom_line\""
-
-
-# Search for the line starting with "image_source" in conf file
-line_number=$(grep -n "^image_source" "$conf_file" | cut -d: -f1)
-
-# Check if a line was found
-if [[ -n "$line_number" ]]; then
-    # replace everey / with \\/ to escape the slashes
-    ascii_file=$(echo "$ascii_file" | sed 's/\//\\\//g')
-    # replace the image source in the conf file with actual path to the ascii file
-    replace_string_in_file "$conf_file" "$line_number" "image_source=$ascii_file"
-else
-    # Error messsage if no line was found
-    echo -e "\033[31mError: No line starting with 'image_source' found in $conf_file\033[39m" >&2
-    exit 1
-fi
 
 # Success message (if not quiet)
 if [[ "$QUIET" = false ]]; then
