@@ -1,7 +1,7 @@
 # bmofetch
 
 A neofetch theme inspired by BMO from Adventure Time with a cowsay like speech bubble.\
-you can find the complete neofetch-themes repository at: https://github.com/Chick2D/neofetch-themes
+You can find the complete neofetch-themes repository at: https://github.com/Chick2D/neofetch-themes
 
 ![bmofetch](https://github.com/user-attachments/assets/1850e6a3-6ad2-4421-a73b-3259f9b064f1)
 
@@ -12,11 +12,11 @@ you can find the complete neofetch-themes repository at: https://github.com/Chic
 
 
 ## Installation
-requires neofetch to be installed.
+Requires [neofetch](https://github.com/dylanaraps/neofetch) to be installed.
 
-  1. Clone the repository:
+1. Clone the repository:
 ```bash
-  git clone
+git clone
 ```
 2. Copy the bmofetch folder to your neofetch themes directory:
 ```bash
@@ -29,7 +29,7 @@ neofetch --config ~/.config/neofetch/bmofetch/bmofetch.conf
 
 ## Change the speech bubble text
 
-You can change the speech bublle text by running [bmosay.sh](https://github.com/donatienLeray/bmofetch/bmosay.sh) in your terminal:
+You can change the speech bubble text by running [bmosay.sh](https://github.com/donatienLeray/bmofetch/bmosay.sh) in your terminal:
 ```bash
  sh path_to_bmofetch/bmosay.sh "your text here"
 ```
@@ -41,8 +41,8 @@ You can change the speech bublle text by running [bmosay.sh](https://github.com/
 &nbsp;&nbsp;-q, --quiet&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;Suppress output.\
 &nbsp;&nbsp;-r, --random &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Specify a file to get a random line from.\
 &nbsp;&nbsp;-h, --help &nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Display help message and exit.\
-&nbsp;&nbsp;-vq, -qv &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enable both verbose and quiet mode.(only prints debug messages)\
-&nbsp;&nbsp;-\*\*, -\*\*\*&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Any combination of r, v, q can be used instead  of the above
+&nbsp;&nbsp;-vq, -qv &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enable both verbose and quiet mode. (only prints debug messages)\
+&nbsp;&nbsp;-\*\*, -\*\*\*&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Any combination of r, v, q can be used instead of the above
 
 **EXAMPLES:**
 ```bash
@@ -52,7 +52,7 @@ sh .config/neofetch/bmofetch/bmosay.sh -qr file.txt\
 sh .config/neofetch/bmofetch/bmosay.sh --help
 ```
 
-## Input suported by bmosay.sh
+## Input supported by bmosay.sh
 \+ supports utf-8 characters.\
 \- newlines and carriage returns are not supported yet.\
 \- multiple spaces as well as leading and trailing spaces are ignored.
