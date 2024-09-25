@@ -8,6 +8,9 @@ VERBOSE=false
 QUIET=false
 RANDOM_MODE=false
 
+# Get the path of the script
+CONF_PATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+
 # Function to replace a specific line of a file wih a new string
 replace_string_in_file() {
     local file_path="$1"
@@ -45,6 +48,27 @@ replace_string_in_file() {
     fi
 }
 
+# check if path is valid and diretory contains a bmofetch.conf and an bmo.txt file
+check_path() {
+    # Check if the directory exists
+    if [ ! -d "$1" ]; then
+        echo -e "\033[31mError: Directory '$1' not found.\033[39m" >&2
+        exit 1
+    fi
+    # Check if the directory contains the required bmofetch.conf file
+    if [ ! -f "$1/bmofetch.conf" ]; then
+        echo -e "\033[31mError: File 'bmofetch.conf' not found in directory '$1'.\033[39m" >&2
+        exit 1
+    fi
+    # Check if the directory contains the required bmo.txt file
+    if [ ! -f "$1/bmo.txt" ]; then
+        echo -e "\033[31mError: File 'bmo.txt' not found in directory '$1'.\033[39m" >&2
+        exit 1
+    fi
+    # Set the script path to the provided path
+    CONF_PATH="$1"
+}
+
 
 # Function to print the help message
 print_help() {
@@ -61,6 +85,7 @@ print_help() {
       -v, --verbose       Enable verbose mode.(prints debug messages)
       -q, --quiet         Suppress output.
       -r, --random        Specify a file to get a random line from.
+      -p, --path          Specify the path to the bmofetch directory.
       -h, --help          Display this help message and exit.
       -vq, -qv            Enable both verbose and quiet mode.(only prints debug messages)
       -**,-***            Any combination of r, v, q can be used instead  of the above
@@ -70,6 +95,7 @@ print_help() {
       sh $0 -vq --random file.txt
       sh $0 -qr file.txt
       sh $0 --help
+      sh $0 -v -p /path/to/bmofetch \"Hello, world!\"
     "
     exit 0
 }
@@ -77,7 +103,7 @@ print_help() {
 
 # Check if the correct number of arguments is provided
 if [[ "$#" -lt 1 ]] || [[ "$#" -gt 4 ]]; then
-    printf "Usage: sh %s [-v|--verbose] [-q|--quiet]  [-r|--random <file>] <new_string> [-h| --help] \n" "$0" >&2
+    printf "Usage: sh %s [-v|--verbose] [-q|--quiet]  [-r|--random <file>] <new_string> [-h| --help] [-p|--path] \n" "$0" >&2
     exit 0
 fi
 
@@ -88,6 +114,7 @@ while [[ "$#" -gt 0 ]]; do
         -v|--verbose) VERBOSE=true ;;
         -q|--quiet) QUIET=true ;;
         -r|--random) RANDOM_MODE=true;;
+        -p|--path) shift ; check_path "$1" ;;
         -h|--help) print_help ;;
         -vq|-qv) VERBOSE=true; QUIET=true ;;
         -rv|-vr) RANDOM_MODE=true; VERBOSE=true ;;
@@ -167,11 +194,9 @@ if [[ $end_center_line =~ ^[[:space:]].* ]]; then
     end_center_line="" #This will print a single whitespace overlapping the ascii
 fi
 
-# Get the path of the script
-SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 # Path to the ASCII file and the configuration file
-ascii_file="$SCRIPTPATH/bmo.txt"
-conf_file="$SCRIPTPATH/bmofetch.conf"
+ascii_file="$CONF_PATH/bmo.txt"
+conf_file="$CONF_PATH/bmofetch.conf"
 
 # Make the first part of the speak bubble in the ascii file (2 chars of the text)
 replace_string_in_file "$ascii_file" "1" "\\\u001b[1m                  $start_top_line"

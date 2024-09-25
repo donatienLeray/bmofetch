@@ -42,16 +42,18 @@ You can change the speech bubble text by running [bmosay.sh](https://github.com/
 &nbsp;&nbsp;-v, --verbose&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enable verbose mode.(prints debug messages)\
 &nbsp;&nbsp;-q, --quiet&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;Suppress output.\
 &nbsp;&nbsp;-r, --random &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Specify a file to get a random line from.\
+&nbsp;&nbsp;-p, --path &nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Specify the path to the bmofetch directory.\
 &nbsp;&nbsp;-h, --help &nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Display help message and exit.\
 &nbsp;&nbsp;-vq, -qv &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enable both verbose and quiet mode. (only prints debug messages)\
 &nbsp;&nbsp;-\*\*, -\*\*\*&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Any combination of r, v, q can be used instead of the above
 
 **EXAMPLES:**
 ```bash
-sh .config/neofetch/bmofetch/bmosay.sh "Hello, world!"\
-sh .config/neofetch/bmofetch/bmosay.sh -vq --random file.txt\
-sh .config/neofetch/bmofetch/bmosay.sh -qr file.txt\
+sh .config/neofetch/bmofetch/bmosay.sh "Hello, world!"
+sh .config/neofetch/bmofetch/bmosay.sh -vq --random file.txt
+sh .config/neofetch/bmofetch/bmosay.sh -qr file.txt
 sh .config/neofetch/bmofetch/bmosay.sh --help
+sh .config/neofetch/bmofetch/bmosay.sh -p /path/to/bmofetch "Hello, world!"
 ```
 ## Input supported
 \+ supports utf-8 characters.\
