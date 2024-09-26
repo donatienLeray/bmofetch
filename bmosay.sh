@@ -52,21 +52,54 @@ replace_string_in_file() {
 check_path() {
     # Check if the directory exists
     if [ ! -d "$1" ]; then
-        echo -e "\033[31mError: Directory '$1' not found.\033[39m" >&2
+        if [[ "$QUIET" = false ]]; then
+            echo -e "\033[31mError: Directory '$1' not found.\033[39m" >&2
+        fi
         exit 1
     fi
-    # Check if the directory contains the required bmofetch.conf file
-    if [ ! -f "$1/bmofetch.conf" ]; then
-        echo -e "\033[31mError: File 'bmofetch.conf' not found in directory '$1'.\033[39m" >&2
-        exit 1
-    fi
-    # Check if the directory contains the required bmo.txt file
-    if [ ! -f "$1/bmo.txt" ]; then
-        echo -e "\033[31mError: File 'bmo.txt' not found in directory '$1'.\033[39m" >&2
-        exit 1
-    fi
+    # Check for file bmofetch.conf and bmo.txt
+    check_file "$1" "bmofetch.conf"
+    check_file "$1" "bmo.txt"
     # Set the script path to the provided path
     CONF_PATH="$1"
+}
+
+# check if a file exists under the provided path
+check_file() {
+    # Check if the directory contains the required file
+    if [ ! -f "$1/$2" ]; then
+        # if quiet mode exit since it user cant be asked to copy the file
+        if [[ "$QUIET" = true ]]; then
+            exit 1
+        fi
+        # Check if the CONF_PATH contains the required file
+        if [ ! -f "$CONF_PATH/$2" ]; then
+            echo -e "\033[31mError: File '$2' not found in directory '$1' neither in directory '$CONF_PATH'.\033[39m" >&2
+            exit 1
+        fi
+        # Ask the user if it should be copied to the provided path
+        read -p "File '$2' not found in directory '$1'. Do you want to copy it from '$CONF_PATH'? [Y/n]: " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]] || [[ $REPLY == "" ]]; then
+            # copy file so that it can be modified
+            cp --no-preserve=mode,ownership "$CONF_PATH/$2" "$1"
+            # Check if the file was copied successfully
+            if [ ! -f "$1/$2" ]; then
+                echo -e "\033[31mError: Failed to copy '$2' to directory '$1'.\033[39m" >&2
+                exit 1
+            # check if the file is readable and writable
+            elif [ ! -r "$1/$2" ] || [ ! -w "$1/$2" ]; then
+                echo -e "\033[31mError: File '$1/$2' is not readable or writable.\033[39m" >&2
+                exit 1
+            fi
+            # copy successful
+            echo -e "\033[32mSuccess: File '$2' copied to directory '$1'.\033[39m\n"
+        else
+            # exit if the user does not want to copy the file
+            echo -e "\033[31mError: File '$2' not found in directory '$1'.\033[39m" >&2
+            exit 1
+        fi
+    fi
 }
 
 
@@ -111,11 +144,11 @@ fi
 # getops couldn't be used here bc. it doesn't support long options
 while [[ "$#" -gt 0 ]]; do
     case "$1" in
+        -p|--path) shift ; check_path "$1" ;;
+        -h|--help) print_help ;;
         -v|--verbose) VERBOSE=true ;;
         -q|--quiet) QUIET=true ;;
         -r|--random) RANDOM_MODE=true;;
-        -p|--path) shift ; check_path "$1" ;;
-        -h|--help) print_help ;;
         -vq|-qv) VERBOSE=true; QUIET=true ;;
         -rv|-vr) RANDOM_MODE=true; VERBOSE=true ;;
         -rq|-qr) RANDOM_MODE=true; QUIET=true ;;
@@ -207,6 +240,23 @@ replace_string_in_file "$ascii_file" "3" "\\\033[36m    \\/|\\\033[39m ______\\\
 replace_string_in_file "$conf_file" "5" "    prin \"$end_top_line\""
 replace_string_in_file "$conf_file" "6" "    prin \"$end_center_line\"" 
 replace_string_in_file "$conf_file" "7" "    prin \"$end_bottom_line\""
+
+# Search for the line starting with "image_source" in conf file
+line_number=$(grep -n "^image_source" "$conf_file" | cut -d: -f1)
+
+# Check if a line was found
+if [[ -n "$line_number" ]]; then
+    # replace everey / with \\/ to escape the slashes
+    ascii_file=$(echo "$ascii_file" | sed 's/\//\\\//g')
+    # replace the image source in the conf file with actual path to the ascii file
+    replace_string_in_file "$conf_file" "$line_number" "image_source=$ascii_file"
+else
+    # Error messsage if no line was found
+    if [[ "$QUIET" = false ]]; then
+        echo -e "\033[31mError: No line starting with 'image_source' found in $conf_file\033[39m" >&2
+    fi
+    exit 1
+fi
 
 # Success message (if not quiet)
 if [[ "$QUIET" = false ]]; then

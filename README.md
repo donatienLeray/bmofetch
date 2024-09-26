@@ -42,7 +42,7 @@ You can change the speech bubble text by running [bmosay.sh](https://github.com/
 &nbsp;&nbsp;-v, --verbose&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enable verbose mode.(prints debug messages)\
 &nbsp;&nbsp;-q, --quiet&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;Suppress output.\
 &nbsp;&nbsp;-r, --random &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Specify a file to get a random line from.\
-&nbsp;&nbsp;-p, --path &nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Specify the path to the bmofetch directory.\
+&nbsp;&nbsp;-p, --path &nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Specify the path to the bmofetch directory. If [`bmofetch.conf`](https://github.com/donatienLeray/bmofetch/blob/main/bmofetch.conf) or [`bmofetch.txt`](https://github.com/donatienLeray/bmofetch/blob/main/bmo.txt) are not in the directory they will be copied from \<path-to-bmofetch\> if possible.\
 &nbsp;&nbsp;-h, --help &nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Display help message and exit.\
 &nbsp;&nbsp;-vq, -qv &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enable both verbose and quiet mode. (only prints debug messages)\
 &nbsp;&nbsp;-\*\*, -\*\*\*&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Any combination of r, v, q can be used instead of the above
@@ -56,21 +56,24 @@ sh .config/neofetch/bmofetch/bmosay.sh --help
 sh .config/neofetch/bmofetch/bmosay.sh -p /path/to/bmofetch "Hello, world!"
 ```
 ## Input supported
-\+ supports utf-8 characters.\
-\- newlines and carriage returns are not supported yet.\
-\- multiple spaces as well as leading and trailing spaces are ignored.
+\+ Supports utf-8 characters.\
+\- Newlines and carriage returns are not supported yet.\
+\- Multiple spaces as well as leading and trailing spaces are ignored.
 
 ## Roadmap bmosay
 <details>
   <summary>older</summary>
-  <b>&nbsp;|</br>
-  <b>✅ support for compact flags.</br>
-  <b>&nbsp;|</br>
-  <b>✅ support input from file.</b>
+  <b>&nbsp;|<br />
+  ✅ support for compact flags.<br />
+  &nbsp;|<br />
+  ✅ support input from file.<br />
+  &nbsp;|<br />
+  ✅ <a href="https://github.com/donatienLeray/bmofetch/issues/3">Working Directory #3</a><br />
+  </b>
 </details>
     
 &nbsp;**|**\
-✅ **[Working Directory #3](https://github.com/donatienLeray/bmofetch/issues/3)**\
+✅ **[Working Directory #4](https://github.com/donatienLeray/bmofetch/issues/4)**\
 &nbsp;**|**\
 🛠️ **support multiline input.**\
 &nbsp;|\
