@@ -1,20 +1,29 @@
 # bmofetch
 
 A neofetch theme inspired by BMO from Adventure Time with a cowsay like speech bubble.\
-You can find the complete neofetch-themes repository at: https://github.com/Chick2D/neofetch-themes
+[more neofetch-themes](https://github.com/Chick2D/neofetch-themes).
 
 ![bmofetch](https://github.com/user-attachments/assets/1850e6a3-6ad2-4421-a73b-3259f9b064f1)
 
+## Table of contents
+
 - [bmofetch](#bmofetch)
+  - [Requirements](#requirements)
   - [Installation](#installation)
 - [bmosay](#bmosay) 
   - [Change the speech bubble text](#change-the-speech-bubble-text)
   - [Input supported](#input-supported)
   - [Roadmap](#roadmap-bmosay)
 
+## Requirements
+- Requires [neofetch](https://github.com/dylanaraps/neofetch) to be installed.
+- Requires to use [Nerd font](https://www.nerdfonts.com/) in you terminal for the above theme to render the icons correctly. 
+  - [how to install NF (personal recommandation)](https://ostechnix.com/install-nerd-fonts-to-add-glyphs-in-your-code-on-linux/) 
+  - [more ways to download NF](https://github.com/ryanoasis/nerd-fonts?tab=readme-ov-file#font-installation)
+> [!NOTE]
+> If the font is **not monospaced** you will perhaps need to change the gap size in the [config](https://github.com/donatienLeray/bmofetch/blob/main/bmofetch.conf) for the speech bubble to overlay correctly.
 
 ## Installation
-Requires [neofetch](https://github.com/dylanaraps/neofetch) to be installed.
 
 1. change to your neofetch themes directory:
 ```bash
@@ -73,7 +82,7 @@ sh .config/neofetch/bmofetch/bmosay.sh -p /path/to/bmofetch "Hello, world!"
 </details>
     
 &nbsp;**|**\
-✅ **[Working Directory #4](https://github.com/donatienLeray/bmofetch/issues/4)**\
+✅ **[Auto-copy on -p #4](https://github.com/donatienLeray/bmofetch/issues/4)**\
 &nbsp;**|**\
 🛠️ **support multiline input.**\
 &nbsp;|\
