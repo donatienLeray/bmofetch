@@ -21,7 +21,8 @@ A neofetch theme inspired by BMO from Adventure Time with a cowsay like speech b
   - [how to install NF (personal recommandation)](https://ostechnix.com/install-nerd-fonts-to-add-glyphs-in-your-code-on-linux/) 
   - [more ways to download NF](https://github.com/ryanoasis/nerd-fonts?tab=readme-ov-file#font-installation)
 > [!NOTE]
-> If the font is **not monospaced** you will perhaps need to change the gap size in the [config](https://github.com/donatienLeray/bmofetch/blob/main/bmofetch.conf) for the speech bubble to overlay correctly.
+> If the font is **not monospaced** you will perhaps need to change the `GAP_SIZE`-value in the [bmosay](https://github.com/donatienLeray/bmofetch/blob/main/bmosay.sh) and [run it](#change-the-speech-bubble-text) for the speech bubble to overlay correctly.\
+> If not using bmosay manually changing the `gap`-value in the [bmofetch.conf](https://github.com/donatienLeray/bmofetch/blob/main/bmofetch.conf) will do the same.
 
 ## Installation
 

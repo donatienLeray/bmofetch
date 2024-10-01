@@ -196,7 +196,7 @@ input=$(echo "$input" | sed 's/\//\\\//g')
 # Make the top line "ˏ______ˎ"
 top_line="ˏ$(printf '_%.0s' $(seq 1 $bub_len))ˎ"
 
-# Make center text "| text |"
+# Make center text "( text )"
 center_text="\( $input \)"
 
 # Make the bottom line "`ˉˉˉˉˉˉ´"
