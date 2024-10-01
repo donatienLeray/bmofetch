@@ -7,7 +7,8 @@
 VERBOSE=false
 QUIET=false
 RANDOM_MODE=false
-
+# Global variable for the gap size between the text and the ASCII 
+GAP_SIZE=-44
 # Get the path of the script
 CONF_PATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 
@@ -186,13 +187,13 @@ if [[ $input == *'\n'* ]] || [[ $input == *'\r'* ]]; then
 fi
 
 # Get the inner size of the speach bubble
-bub_len=$((${#input}+2))
+bub_len=$((${#input}+1))
 
 # Make the top line "ˏ______ˎ"
 top_line="ˏ$(printf '_%.0s' $(seq 1 $bub_len))ˎ"
 
 # Make center text "| text |"
-center_text="\| $input \|"
+center_text="\( $input \)"
 
 # Make the bottom line "`ˉˉˉˉˉˉ´"
 bottom_line="\`$(printf 'ˉ%.0s' $(seq 1 $bub_len))\´"
@@ -209,7 +210,7 @@ end_center_line=""
 end_bottom_line=""
 
 # If input string was not empty
-if [ "$bub_len" -gt 2 ]; then
+if [ "$bub_len" -gt 1 ]; then
     # Get the 4 first chars of the lines
     start_top_line=${top_line:0:4}
     start_center_text=${center_text:0:5}
@@ -225,6 +226,12 @@ fi
 if [[ $end_center_line =~ ^[[:space:]].* ]]; then
     start_center_text="$center_text"
     end_center_line="" #This will print a single whitespace overlapping the ascii
+    # if input is longer than 29 charachters the spacing will be off
+    if [[ $bub_len -gt 29 ]]; then
+        # increase gapsize by one for each char more than 29
+        chage_in_gap=$(($bub_len - 29))
+        GAP_SIZE=$(($GAP_SIZE - $chage_in_gap))
+    fi
 fi
 
 # Path to the ASCII file and the configuration file
@@ -232,9 +239,9 @@ ascii_file="$CONF_PATH/bmo.txt"
 conf_file="$CONF_PATH/bmofetch.conf"
 
 # Make the first part of the speak bubble in the ascii file (2 chars of the text)
-replace_string_in_file "$ascii_file" "1" "\\\u001b[1m                  $start_top_line"
+replace_string_in_file "$ascii_file" "1" "\\\u001b[1m                   $start_top_line"
 replace_string_in_file "$ascii_file" "2" "\\\033[36m     ˏ________ˎ   \\\033[39m$start_center_text"
-replace_string_in_file "$ascii_file" "3" "\\\033[36m    \\/|\\\033[39m ______\\\033[36m | \\\033[39m \\/$start_bottom_line"
+replace_string_in_file "$ascii_file" "3" "\\\033[36m    \\/|\\\033[39m ______\\\033[36m | \\\033[39m \\/ $start_bottom_line"
 
 # Make the end part of the speak bubble in the conf file (form the third text char to the end)
 replace_string_in_file "$conf_file" "5" "    prin \"$end_top_line\""
@@ -242,21 +249,16 @@ replace_string_in_file "$conf_file" "6" "    prin \"$end_center_line\""
 replace_string_in_file "$conf_file" "7" "    prin \"$end_bottom_line\""
 
 # Search for the line starting with "image_source" in conf file
-line_number=$(grep -n "^image_source" "$conf_file" | cut -d: -f1)
+source_line_number=$(grep -n "^image_source" "$conf_file" | cut -d: -f1)
+# Search for the line with gap=x in conf file
+gap_line_number=$(grep -n "^gap=" "$conf_file" | cut -d: -f1)
 
-# Check if a line was found
-if [[ -n "$line_number" ]]; then
-    # replace everey / with \\/ to escape the slashes
-    ascii_file=$(echo "$ascii_file" | sed 's/\//\\\//g')
-    # replace the image source in the conf file with actual path to the ascii file
-    replace_string_in_file "$conf_file" "$line_number" "image_source=$ascii_file"
-else
-    # Error messsage if no line was found
-    if [[ "$QUIET" = false ]]; then
-        echo -e "\033[31mError: No line starting with 'image_source' found in $conf_file\033[39m" >&2
-    fi
-    exit 1
-fi
+# replace everey / with \\/ to escape the slashes
+ascii_file=$(echo "$ascii_file" | sed 's/\//\\\//g')
+# replace the image_source line in the conf file with the new image_source
+replace_string_in_file "$conf_file" "$source_line_number" "image_source=$ascii_file"
+# replace the gap line in the conf file with the new gap
+replace_string_in_file "$conf_file" "$gap_line_number" "gap=$GAP_SIZE"
 
 # Success message (if not quiet)
 if [[ "$QUIET" = false ]]; then
