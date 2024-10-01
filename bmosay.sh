@@ -136,7 +136,7 @@ print_help() {
 
 
 # Check if the correct number of arguments is provided
-if [[ "$#" -lt 1 ]] || [[ "$#" -gt 4 ]]; then
+if [[ "$#" -lt 1 ]] || [[ "$#" -gt 6 ]]; then
     printf "Usage: sh %s [-v|--verbose] [-q|--quiet]  [-r|--random <file>] <new_string> [-h| --help] [-p|--path] \n" "$0" >&2
     exit 0
 fi
@@ -188,6 +188,10 @@ fi
 
 # Get the inner size of the speach bubble
 bub_len=$((${#input}+1))
+
+# replace all / with \/ to escape the slashes 
+#(must happen after the count else escape char will be counted)
+input=$(echo "$input" | sed 's/\//\\\//g')
 
 # Make the top line "ˏ______ˎ"
 top_line="ˏ$(printf '_%.0s' $(seq 1 $bub_len))ˎ"
