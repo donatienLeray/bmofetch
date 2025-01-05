@@ -32,7 +32,7 @@ cd ~/.config/neofetch/
 ```
 2. Clone the repository:
 ```bash
-git clone
+git clone git@github.com:donatienLeray/bmofetch.git
 ```
 3. Run neofetch with the bmofetch.conf file:
 ```bash
